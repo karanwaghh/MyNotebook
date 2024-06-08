@@ -1,8 +1,12 @@
-import React from 'react'
+import Notes from './Notes'
+import AddNote from './AddNote'
 
 function Home() {
   return (
-    <div>This is Home</div>
+    <div>
+    <AddNote/>
+    <Notes/>
+    </div>
   )
 }
 
