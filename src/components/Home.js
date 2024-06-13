@@ -1,11 +1,11 @@
 import Notes from './Notes'
 import AddNote from './AddNote'
 
-function Home() {
+function Home(props) {
   return (
     <div>
-    <AddNote/>
-    <Notes/>
+    <AddNote showAlert={props.showAlert}/>
+    <Notes showAlert={props.showAlert}/>
     </div>
   )
 }
