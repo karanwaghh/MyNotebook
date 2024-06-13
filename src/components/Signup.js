@@ -16,7 +16,6 @@ function Signup(props) {
             body: JSON.stringify({name:credential.name,email:credential.email,password:credential.password}), 
           });
           const json=await response.json();
-          console.log(json);
           if(json.success){
             localStorage.setItem('token',json.data);
             navigate("/");
