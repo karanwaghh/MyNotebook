@@ -1,12 +1,28 @@
-import React  from "react";
+import React, { useState }  from "react";
 import {Link,useNavigate,useLocation} from 'react-router-dom'
 
-function Navbar() {
+function Navbar(props) {
+
   let navigate=useNavigate('');
   let location = useLocation();
   const handleLogout=()=>{
     localStorage.removeItem('token');
     navigate('/login');
+  }
+  const ProfileHandler= async(e)=>{
+      e.preventDefault();
+      const url=`http://localhost:5000/api/auth/getuser`
+      const response = await fetch(url, {
+          method: "POST",
+          headers: {
+          "Content-Type": "application/json",
+          "auth-token":localStorage.getItem('token')
+          },
+        });
+      const json=await response.json();
+      console.log(json);
+      props.setUserdetail({name:json.user.name,email:json.user.email,log:json.user.date});
+      navigate('/profile');
   }
   return (
     <div>
@@ -37,7 +53,9 @@ function Navbar() {
             {!localStorage.getItem('token')?<form className="d-flex" role="search">
             <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
             <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
-            </form>:<button onClick={handleLogout} className="btn btn-primary">Logout</button>}
+            </form>:<div><button onClick={ProfileHandler} className="btn btn-danger mx-2"><i className="fa-solid fa-user"></i></button>
+            <button onClick={handleLogout} className="btn btn-primary mx-2">Logout</button> 
+            </div>}
           </div>
         </div>
       </nav>

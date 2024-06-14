@@ -7,9 +7,12 @@ import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { useState } from 'react';
+import Profile from './components/Profile';
 
 function App() {
   const [alert, setAlert] = useState(null);
+  const [userdetail,setUserdetail]=useState({name:"",email:"",log:""});
+
   const showAlert = (message, type) => {
     setAlert({
       msg: message,
@@ -24,7 +27,7 @@ function App() {
     <div>
       <NoteState>
           <Router>
-            <Navbar/>
+            <Navbar userdetail={userdetail} setUserdetail={setUserdetail} />
             <Alert alert={alert}/>
             <div className="container">
             <Routes>
@@ -32,6 +35,7 @@ function App() {
                 <Route exact path="/about" element={<About/>} />
                 <Route exact path="/login" element={<Login showAlert={showAlert}/>} />
                 <Route exact path="/signup" element={<Signup showAlert={showAlert}/>} />
+                <Route exact path="/profile" element={<Profile userdetail={userdetail}/>} />
             </Routes>
             </div>
           </Router>
